@@ -1,0 +1,16 @@
+version: '3.6'
+
+services:
+
+  stub:
+    image: andyrbell/mountebank:1.15.0
+    container_name: stub
+    restart: on-failure
+    ports:
+    - 2525:2525
+    - 8001:8001
+    - 8002:8002
+    - 8003:8003
+    volumes:
+    - ./mountebank-config.ejs:/mountebank/config.ejs
+    entrypoint: ["mb", "--configfile", "/mountebank/config.ejs"]
