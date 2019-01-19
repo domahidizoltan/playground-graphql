@@ -1,0 +1,34 @@
+type User {
+    id: ID!,
+    name: String!,
+    books: [Book]!,
+    email: String!,
+    location: String,
+    secret: Secret
+}
+
+type Comment {
+    user: User!,
+    comment: String!
+}
+
+type Book {
+    id: ID!,
+    title: String!,
+    comments: [Comment]
+}
+
+type Secret {
+    id: ID!,
+    secret1: String!,
+    secret2: String
+}
+
+type Query {
+    user(id: Int!): User
+    users: [User]
+}
+
+schema {
+    query: Query
+}
