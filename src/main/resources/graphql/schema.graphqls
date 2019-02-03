@@ -25,7 +25,6 @@ type Secret {
 }
 
 type Query {
-    user(id: Int!): User
     users: [User]
 }
 

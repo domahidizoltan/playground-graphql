@@ -14,10 +14,6 @@ public class Query implements GraphQLQueryResolver {
         this.userRepository = userRepository;
     }
 
-    public User user(Integer id) {
-        return userRepository.getUser(id).orElse(null);
-    }
-
     public List<User> users() {
         return userRepository.getUsers();
     }

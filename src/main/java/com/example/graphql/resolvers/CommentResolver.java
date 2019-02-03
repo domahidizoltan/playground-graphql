@@ -3,23 +3,18 @@ package com.example.graphql.resolvers;
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.example.graphql.model.Comment;
 import com.example.graphql.model.User;
-import com.example.graphql.repository.UserRepository;
+import graphql.schema.DataFetchingEnvironment;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class CommentResolver implements GraphQLResolver<Comment> {
 
+    public CompletableFuture<User> getUser(Comment comment, DataFetchingEnvironment dfe) {
+        var dataloader = ResolverHelper.<User>getLoader(dfe, "userDataLoader");
 
-    private UserRepository userRepository;
-
-    public CommentResolver(UserRepository userRepository) {
-        this.userRepository = userRepository;
+        log.info("Resolving user " + comment.getUser().getId());
+        return dataloader.load(comment.getUser().getId());
     }
-
-    public User getUser(Comment comment) {
-        var id = comment.getUser().getId();
-        log.info("Resolving user " + id);
-        return userRepository.getUser(id).orElse(null);
-    }
-
 }

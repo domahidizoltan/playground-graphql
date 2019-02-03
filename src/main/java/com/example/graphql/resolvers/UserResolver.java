@@ -6,9 +6,11 @@ import com.example.graphql.model.Secret;
 import com.example.graphql.model.User;
 import com.example.graphql.repository.BookRepository;
 import com.example.graphql.repository.SecretRepository;
+import graphql.schema.DataFetchingEnvironment;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -22,17 +24,26 @@ public class UserResolver implements GraphQLResolver<User> {
         this.bookRepository = bookRepository;
     }
 
-    public Secret getSecret(User user) {
-        var secret = user.getSecret().getId();
-        log.info("Resolving secret " + secret);
-        return secretRepository.getSecret(secret).orElse(null);
+    public CompletableFuture<Secret> getSecret(User user, DataFetchingEnvironment dfe) {
+        var dataloader = ResolverHelper.<Secret>getLoader(dfe, "secretDataLoader");
+
+        if (user.getSecret() != null) {
+            log.info("Resolving secret " + user.getSecret().getId());
+            return dataloader.load(user.getSecret().getId());
+        } else {
+            return CompletableFuture.completedFuture(null);
+        }
     }
 
-    public List<Book> getBooks(User user) {
-        return user.getBooks().stream()
+    public CompletableFuture<List<Book>> getBooks(User user, DataFetchingEnvironment dfe) {
+        var dataloader = ResolverHelper.<Book>getLoader(dfe, "bookDataLoader");
+
+        var futures = user.getBooks().stream()
             .peek(book -> log.info("Resolving book " + book.getId()))
-            .map(book -> bookRepository.getBook(book.getId()).orElse(null))
+            .map(book -> dataloader.load(book.getId()))
             .collect(Collectors.toList());
+
+        return ResolverHelper.toResultsFuture(futures);
     }
 
 }

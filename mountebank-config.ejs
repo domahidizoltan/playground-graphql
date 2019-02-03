@@ -10,6 +10,54 @@
             {
               "equals": {
                 "method": "GET",
+                "path": "/users",
+                "query": {"id": ["1","2","1","5"]}
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "body": [
+                    {
+                        "name": "User1",
+                        "email": "user1@email.com",
+                        "secret": 123,
+                        "location": "Berlin",
+                        "dateOfBirth": "2000-01-02"
+                     },
+                     {
+                         "name": "User2",
+                         "email": "user2@email.com",
+                          "location": "London",
+                          "hobby": "hiking"
+                      },
+                      {
+                          "name": "User1",
+                          "email": "user1@email.com",
+                          "secret": 123,
+                          "location": "Berlin",
+                          "dateOfBirth": "2000-01-02"
+                       },
+                      {
+                          "name": "User5",
+                          "email": "user5@email.com",
+                          "secret": 567,
+                          "location": "Paris"
+                       }
+                 ]
+              },
+              "_behaviors": {
+                "wait": 1000
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "equals": {
+                "method": "GET",
                 "path": "/users"
               }
             }
@@ -50,125 +98,6 @@
               }
             }
           ]
-        },
-        {
-          "predicates": [
-            {
-              "equals": {
-                "method": "GET",
-                "path": "/users/1"
-              }
-            }
-          ],
-          "responses": [
-            {
-              "is": {
-                "body": {
-                    "name": "User1",
-                    "email": "user1@email.com",
-                    "secret": 123,
-                    "location": "Berlin",
-                    "dateOfBirth": "2000-01-02"
-                 }
-              },
-              "_behaviors": {
-                "wait": 500
-              }
-            }
-          ]
-        },
-        {
-          "predicates": [
-            {
-              "equals": {
-                "method": "GET",
-                "path": "/users/2"
-              }
-            }
-          ],
-          "responses": [
-            {
-              "is": {
-                "body": {
-                    "name": "User2",
-                    "email": "user2@email.com",
-                     "location": "London",
-                     "hobby": "hiking"
-                 }
-              }
-            }
-          ]
-        },
-        {
-          "predicates": [
-            {
-              "equals": {
-                "method": "GET",
-                "path": "/users/3"
-              }
-            }
-          ],
-          "responses": [
-            {
-              "is": {
-                "body": {
-                    "name": "User3",
-                    "email": "user3@email.com",
-                    "secret": 345,
-                    "hobby": "guitar playing"
-                 }
-              },
-              "_behaviors": {
-                 "wait": 1500
-              }
-            }
-          ]
-        },
-        {
-          "predicates": [
-            {
-              "equals": {
-                "method": "GET",
-                "path": "/users/4"
-              }
-            }
-          ],
-          "responses": [
-            {
-              "is": {
-                "body": {
-                    "name": "User4",
-                    "email": "user4@email.com",
-                    "zodiac": "virgo"
-                 }
-              }
-            }
-          ]
-        },
-        {
-          "predicates": [
-            {
-              "equals": {
-                "method": "GET",
-                "path": "/users/5"
-              }
-            }
-          ],
-          "responses": [
-            {
-              "is": {
-                "body": {
-                    "name": "User5",
-                    "email": "user5@email.com",
-                    "secret": 567,
-                    "location": "Paris"
-                 }
-              },
-              "_behaviors": {
-                "wait": 2500
-              }
-            }
-          ]
         }
       ]
     },
@@ -183,98 +112,50 @@
             {
               "equals": {
                 "method": "GET",
-                "path": "/books/11"
+                "path": "/books",
+                "query": {"id": ["11","12","21","41"]}
               }
             }
           ],
           "responses": [
             {
               "is": {
-                "body": {
-                    "title": "Book11",
-                    "comments": [
-                        {
-                            "user": 1,
-                            "comment": "my favorite"
-                        },
-                        {
-                            "user": 2,
-                            "comment": "awesome"
-                        }
-                    ]
-                 }
+                "body": [
+                    {
+                        "title": "Book11",
+                        "comments": [
+                            {
+                                "user": 1,
+                                "comment": "my favorite"
+                            },
+                            {
+                                "user": 2,
+                                "comment": "awesome"
+                            }
+                        ]
+                     },
+                     {},
+                     {
+                         "title": "Book21",
+                         "comments": [
+                             {
+                                 "user": 1,
+                                 "comment": "my other favorite"
+                             },
+                             {
+                                 "user": 5,
+                                 "comment": "not that good"
+                             }
+                         ]
+                      },
+                      {
+                          "title": "Book41",
+                          "comments": []
+                       }
+                 ]
               },
               "_behaviors": {
-                "wait": 500
-              }
-            }
-          ]
-        },
-        {
-          "predicates": [
-            {
-              "equals": {
-                "method": "GET",
-                "path": "/books/12"
-              }
-            }
-          ],
-          "responses": [
-            {
-              "is": {
-                "statusCode": 404
-              }
-            }
-          ]
-        },
-        {
-          "predicates": [
-            {
-              "equals": {
-                "method": "GET",
-                "path": "/books/21"
-              }
-            }
-          ],
-          "responses": [
-            {
-              "is": {
-                "body": {
-                    "title": "Book21",
-                    "comments": [
-                        {
-                            "user": 1,
-                            "comment": "my other favorite"
-                        },
-                        {
-                            "user": 5,
-                            "comment": "not that good"
-                        }
-                    ]
-                 }
-              }
-            }
-          ]
-        },
-        {
-          "predicates": [
-            {
-              "equals": {
-                "method": "GET",
-                "path": "/books/41"
-              }
-            }
-          ],
-          "responses": [
-            {
-              "is": {
-                "body": {
-                    "title": "Book41",
-                    "comments": []
-                 }
-              },
-              "_behaviors": {
-                "wait": 2000
+                "wait": 1000
               }
             }
           ]
@@ -287,70 +168,36 @@
       "port": 8003,
       "protocol": "http",
       "stubs": [
-        {
-          "predicates": [
-            {
-              "equals": {
-                "method": "GET",
-                "path": "/secrets/123"
+         {
+            "predicates": [
+              {
+                "equals": {
+                  "method": "GET",
+                  "path": "/secrets",
+                  "query": {"id": ["123","567"]}
+                }
               }
-            }
-          ],
-          "responses": [
-            {
-              "is": {
-                "body": {
-                    "secret1": "this is a secret",
-                    "secret2": "another secret"
-                 }
-              },
-              "_behaviors": {
-                "wait": 500
+            ],
+            "responses": [
+              {
+                "is": {
+                  "body": [
+                  {
+                      "secret1": "this is a secret",
+                      "secret2": "another secret"
+                   },
+                   {
+                     "secret1": "this is also a secret"
+                  }
+                 ]
+                },
+                "_behaviors": {
+                  "wait": 1000
+                }
               }
-            }
-          ]
-        },
-        {
-          "predicates": [
-            {
-              "equals": {
-                "method": "GET",
-                "path": "/secrets/345"
-              }
-            }
-          ],
-          "responses": [
-            {
-              "is": {
-                "statusCode": 404
-              }
-            }
-          ]
-        },
-        {
-          "predicates": [
-            {
-              "equals": {
-                "method": "GET",
-                "path": "/secrets/567"
-              }
-            }
-          ],
-          "responses": [
-            {
-              "is": {
-                "body": {
-                    "secret1": "this is also a secret"
-                 }
-              },
-              "_behaviors": {
-                "wait": 1000
-              }
-            }
-          ]
-        }
+            ]
+          }
       ]
     }
-
   ]
 }
